@@ -3,6 +3,7 @@
     public class Aluno
     {
         public int Id { get; set; }
+        public int IdTurma { get; set; }
         public string Nome { get; set; }
         public DateOnly Data_De_Nascimento { get; set; }
         public string Cpf { get; set; }

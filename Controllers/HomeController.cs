@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using exWeb001.Data.Repositorio.Interfaces;
 using exWeb001.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,11 +7,15 @@ namespace exWeb001.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ITurmaRepositorio _turmaRepositorio;
+        private readonly ITurmaRepositorio _alunoRepositorio;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ITurmaRepositorio alunoRepositorio, ITurmaRepositorio turmaRepositorio)
         {
             _logger = logger;
+            _alunoRepositorio = alunoRepositorio;
+            _turmaRepositorio = turmaRepositorio;
         }
 
         public IActionResult Index()
@@ -31,15 +36,17 @@ namespace exWeb001.Controllers
 
         public IActionResult Relatorio()
         {
-            var alunos = _alunoRepositorio.BuscarAlunos();
-            var turmas = _turmaRepositorio BuscarTurmas();
+            var alunos = _alunoRepositorio.BuscarPorNome();
 
-            List<RelatorioViewModel> relatorioViewModels = alunos
+            var relatorioViewModels = alunos
                 .Select(x => new RelatorioViewModel
                 {
                     Aluno = x,
-                    Turma = turmas.FirstOrDefault(y => y.Id == x.IdTurma)
-                }).ToList();
+                    Turma = _turmaRepositorio.BuscarTurmasPorId(x.IdTurma)
+                })
+                .ToList();
+
+            return View(relatorioViewModels);
         }
     }
 }

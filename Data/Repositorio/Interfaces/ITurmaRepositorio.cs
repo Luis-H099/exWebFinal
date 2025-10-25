@@ -6,6 +6,8 @@ namespace exWeb001.Data.Repositorio.Interfaces
     {
         IEnumerable<Turma> BuscarTurmas();
         List<RelatorioViewModel> GerarRelatorio();
+        public IEnumerable<Turma> BuscarTurmasPorId();
+        public Turma? BuscarTurmasPorId(int id);
     }
 
 }

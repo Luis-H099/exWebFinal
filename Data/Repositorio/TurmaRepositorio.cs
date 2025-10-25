@@ -7,31 +7,24 @@ namespace exWeb001.Data.Repositorio
     {
         private readonly IAlunoRepositorio _alunoRepositorio;
         private readonly ITurmaRepositorio _turmaRepositorio;
+        private readonly BancoContexto _bancoContexto;
 
+        public TurmaRepositorio(BancoContexto bancoContexto)
+        {
+            _bancoContexto = bancoContexto;
+        }
         public TurmaRepositorio(IAlunoRepositorio alunoRepositorio, ITurmaRepositorio turmaRepositorio)
         {
             _alunoRepositorio = alunoRepositorio;
             _turmaRepositorio = turmaRepositorio;
         }
-
-        public IEnumerable<Turma> BuscarTurmas()
+        public Turma? BuscarTurmasPorId(int id)
         {
+            return _bancoContexto.Turma.FirstOrDefault(t => t.IdTurma == id);
         }
-
-        public List<RelatorioViewModel> GerarRelatorio()
+        public IEnumerable<Turma> BuscarTurmasPorId()
         {
-            var alunos = _alunoRepositorio.BuscarAlunos();
-            var turmas = _turmaRepositorio.BuscarTurmas();
-
-            var relatorioViewModels = alunos
-                .Select(x => new RelatorioViewModel
-                {
-                    Aluno = x,
-                    Turma = turmas.FirstOrDefault(y => y.Id == x.IdTurma)
-                })
-                .ToList();
-
-            return relatorioViewModels;
+            return _bancoContexto.Turma.ToList();
         }
     }
 
