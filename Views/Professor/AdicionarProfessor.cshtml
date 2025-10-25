@@ -1,0 +1,28 @@
+﻿@model Professor
+
+@{
+    Layout = "_LayoutLogin";
+}
+
+<h2 class="text-center mb-4">Adicionar Professor</h2>
+
+<form asp-action="CadastrarProfessor" method="post" class="w-50 mx-auto">
+    <div class="mb-3">
+        <label asp-for="Nome" class="form-label">Nome</label>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+  
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Disciplina" class="form-label">Disciplina</label>
+        <input asp-for="Disciplina" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a asp-controller="Professor" asp-action="Index" class="btn btn-secondary">Voltar</a>
+</form>
