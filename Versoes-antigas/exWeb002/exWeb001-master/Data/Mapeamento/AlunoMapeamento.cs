@@ -1,0 +1,27 @@
+﻿using exWeb001.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
+
+namespace exWeb001.Data.Mapeamento
+{
+    public class AlunoMapeamento : IEntityTypeConfiguration<Aluno>
+    {
+        public void Configure(EntityTypeBuilder<Aluno> builder)
+        {
+            builder.ToTable("Usuario");
+
+            builder.HasKey(t => t.Id);
+
+            builder.Property(t => t.Nome).HasColumnType("varchar(50)");
+            builder.Property(t => t.Cpf).HasColumnType("int");
+            builder.Property(t => t.Matricula).HasColumnType("int");
+            builder.Property(t => t.DataNascimento).HasColumnType("date");
+            builder.Property(t => t.Endereco).HasColumnType("varchar(50)");
+            builder.Property(t => t.Numero).HasColumnType("int");
+            builder.Property(t => t.Bairro).HasColumnType("varchar(50)");
+            builder.Property(t => t.Cidade).HasColumnType("varchar(50)");
+            builder.Property(t => t.Cep).HasColumnType("int");
+    
+        }
+    }
+}
